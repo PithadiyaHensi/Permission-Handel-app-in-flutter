@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -33,13 +34,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   Future Camera() async{
-    print('In Camera permission method');
+    print('Camera permission method');
     await Permission.camera.request();
+  }
+
+  Future Location() async{
+    print('Location permission method');
+    await Permission.location.request();
   }
 
   @override
   void initState() {
-    Camera();
+    Location();
     super.initState();
   }
 
@@ -59,9 +65,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/12.9),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 60.0,
-                          backgroundImage: NetworkImage("https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                        Stack(
+                          children: [
+                            CircleAvatar(
+                              radius: 60.0,
+                              backgroundImage: NetworkImage("https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*.08, left: MediaQuery.of(context).size.width*.22),
+                              child: FloatingActionButton(backgroundColor: Colors.cyan,child: Icon(Icons.photo_camera_outlined),onPressed: (){Camera();}),
+                            )
+                          ],
                         ),
                         SizedBox(height: 10.0,),
                         Text("Jons Patel",style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
@@ -106,9 +120,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: new BorderRadius.circular(0.0),
                       ),
                     ),
-                    onPressed: () { Camera(); },
+                    onPressed: () { AppSettings.openAppSettings(); },
                     child: Text(
-                      "Follow",style: TextStyle(color: Colors.white),
+                      "Settings",style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
