@@ -1,4 +1,5 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:camera_app/StringManipulation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -17,7 +18,53 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  // This widget is the root
+  // of your application.
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+        title: "ListView.builder",
+        theme: new ThemeData(
+            primarySwatch: Colors.green
+        ),
+        debugShowCheckedModeBanner: false,
+        home: new HomePageState()
+    );
+  }
+}
+class HomePageState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.cyan,
+          title:Text("My App")
+      ),
+      body: Column(
+        children: [
+          ListTile(
+            trailing: Icon(Icons.arrow_forward_ios),
+            title:Text("Permission"),
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MyHomePage()));
+            },
+          ),
+          ListTile(
+            trailing: Icon(Icons.arrow_forward_ios),
+              title:Text("String Manipulation"),
+              onTap:(){
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => StringManipulation()));
+              },
+          ),
+        ],
+      ),
     );
   }
 }
